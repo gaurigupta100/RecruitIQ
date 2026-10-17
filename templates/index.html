@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}ResumeScreen AI - Intelligent Resume Screening{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="hero-bg-animation"></div>
+    <div class="container position-relative">
+        <div class="row align-items-center min-vh-100 py-5">
+            <div class="col-lg-7">
+                <span class="hero-badge fade-in-up">AI-Powered Resume Intelligence</span>
+                <h1 class="hero-title fade-in-up delay-1">Screen Resumes Smarter with Machine Learning</h1>
+                <p class="hero-subtitle fade-in-up delay-2">
+                    Instantly classify resumes into 25 job categories, extract technical skills,
+                    calculate ATS scores, and get personalized career recommendations.
+                </p>
+                <div class="d-flex flex-wrap gap-3 fade-in-up delay-3">
+                    <a href="{{ url_for('upload') }}" class="btn btn-primary btn-lg px-4">
+                        <i class="bi bi-cloud-upload me-2"></i>Upload Resume
+                    </a>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-outline-light btn-lg px-4">
+                        <i class="bi bi-bar-chart me-2"></i>View Dashboard
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5 fade-in-up delay-4">
+                <div class="hero-card glass-card">
+                    <div class="hero-stat">
+                        <span class="stat-value">25</span>
+                        <span class="stat-label">Job Categories</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-value">200+</span>
+                        <span class="stat-label">Skills Detected</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-value">100</span>
+                        <span class="stat-label">ATS Score Scale</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-value">5MB</span>
+                        <span class="stat-label">Max Upload Size</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding" id="features">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-badge">Features</span>
+            <h2>Everything You Need for Resume Screening</h2>
+            <p>Enterprise-grade features packaged in a beautiful, easy-to-use interface.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card glass-card h-100">
+                    <div class="feature-icon bg-primary-soft"><i class="bi bi-cpu"></i></div>
+                    <h5>ML Classification</h5>
+                    <p>Predict job categories using a trained Linear SVM model with TF-IDF vectorization.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card glass-card h-100">
+                    <div class="feature-icon bg-success-soft"><i class="bi bi-tags"></i></div>
+                    <h5>Skills Extraction</h5>
+                    <p>Automatically detect 200+ technical skills and display them as colorful badges.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card glass-card h-100">
+                    <div class="feature-icon bg-warning-soft"><i class="bi bi-speedometer2"></i></div>
+                    <h5>ATS Scoring</h5>
+                    <p>Get an ATS compatibility score with ratings and actionable improvement tips.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card glass-card h-100">
+                    <div class="feature-icon bg-info-soft"><i class="bi bi-briefcase"></i></div>
+                    <h5>Job Recommendations</h5>
+                    <p>Receive five tailored job role suggestions based on predicted category.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card glass-card h-100">
+                    <div class="feature-icon bg-danger-soft"><i class="bi bi-file-earmark-pdf"></i></div>
+                    <h5>PDF Reports</h5>
+                    <p>Download comprehensive screening reports with predictions, skills, and tips.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card glass-card h-100">
+                    <div class="feature-icon bg-purple-soft"><i class="bi bi-graph-up-arrow"></i></div>
+                    <h5>Analytics Dashboard</h5>
+                    <p>Track uploads, categories, ATS scores, and trends with interactive charts.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding section-alt" id="how-it-works">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-badge">How It Works</span>
+            <h2>Four Simple Steps</h2>
+            <p>From upload to insights in seconds.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="step-card text-center">
+                    <div class="step-number">01</div>
+                    <h5>Upload Resume</h5>
+                    <p>Drag and drop your PDF or DOCX resume (max 5 MB).</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="step-card text-center">
+                    <div class="step-number">02</div>
+                    <h5>Parse & Clean</h5>
+                    <p>Extract text and apply the same preprocessing used during training.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="step-card text-center">
+                    <div class="step-number">03</div>
+                    <h5>ML Prediction</h5>
+                    <p>Classify the resume and compute confidence using decision functions.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="step-card text-center">
+                    <div class="step-number">04</div>
+                    <h5>Get Insights</h5>
+                    <p>View skills, ATS score, missing skills, and download a PDF report.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding" id="tech-stack">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-badge">Tech Stack</span>
+            <h2>Built with Modern Technologies</h2>
+            <p>A robust full-stack architecture for production-ready resume screening.</p>
+        </div>
+        <div class="tech-grid">
+            <div class="tech-item glass-card"><i class="bi bi-filetype-py"></i><span>Python</span></div>
+            <div class="tech-item glass-card"><i class="bi bi-bezier2"></i><span>Flask</span></div>
+            <div class="tech-item glass-card"><i class="bi bi-database"></i><span>SQLite</span></div>
+            <div class="tech-item glass-card"><i class="bi bi-bootstrap"></i><span>Bootstrap 5</span></div>
+            <div class="tech-item glass-card"><i class="bi bi-graph-up"></i><span>Scikit-learn</span></div>
+            <div class="tech-item glass-card"><i class="bi bi-filter"></i><span>TF-IDF</span></div>
+            <div class="tech-item glass-card"><i class="bi bi-diagram-3"></i><span>Linear SVM</span></div>
+            <div class="tech-item glass-card"><i class="bi bi-file-earmark-pdf"></i><span>PyMuPDF</span></div>
+            <div class="tech-item glass-card"><i class="bi bi-file-word"></i><span>python-docx</span></div>
+            <div class="tech-item glass-card"><i class="bi bi-box"></i><span>Joblib</span></div>
+            <div class="tech-item glass-card"><i class="bi bi-bar-chart-line"></i><span>Chart.js</span></div>
+            <div class="tech-item glass-card"><i class="bi bi-file-pdf"></i><span>ReportLab</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container text-center">
+        <h2>Ready to Screen Your Resume?</h2>
+        <p class="mb-4">Join thousands of professionals optimizing their resumes for ATS systems.</p>
+        <a href="{{ url_for('upload') }}" class="btn btn-light btn-lg px-5">
+            <i class="bi bi-rocket-takeoff me-2"></i>Get Started Free
+        </a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Login - ResumeScreen AI{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1><i class="bi bi-box-arrow-in-right me-2"></i>User Login</h1>
+        <p>Log in to access your dashboard, upload resumes, and view screening logs.</p>
+    </div>
+</section>
+
+<section class="section-padding pt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="glass-card">
+                    <h3 class="mb-4 text-center fw-bold">Welcome Back</h3>
+                    <form action="{{ url_for('login') }}" method="POST" class="contact-form">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-transparent border-end-0 border-light-subtle"><i class="bi bi-person text-muted"></i></span>
+                                <input type="text" class="form-control border-start-0 border-light-subtle" id="username" name="username" placeholder="Enter username" required autocomplete="username">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-transparent border-end-0 border-light-subtle"><i class="bi bi-lock text-muted"></i></span>
+                                <input type="password" class="form-control border-start-0 border-light-subtle" id="password" name="password" placeholder="Enter password" required autocomplete="current-password">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Log In
+                        </button>
+                    </form>
+                    <div class="text-center mt-4">
+                        <p class="mb-0 small text-muted">Don't have an account? <a href="{{ url_for('register') }}" class="text-primary fw-semibold">Register here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

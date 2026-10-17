@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Register - ResumeScreen AI{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1><i class="bi bi-person-plus me-2"></i>Create Account</h1>
+        <p>Register as a candidate or a recruiter to start screening resumes.</p>
+    </div>
+</section>
+
+<section class="section-padding pt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="glass-card">
+                    <h3 class="mb-4 text-center fw-bold">Sign Up</h3>
+                    <form action="{{ url_for('register') }}" method="POST" class="contact-form">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-transparent border-end-0 border-light-subtle"><i class="bi bi-person text-muted"></i></span>
+                                <input type="text" class="form-control border-start-0 border-light-subtle" id="username" name="username" placeholder="Choose username" required autocomplete="username">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-transparent border-end-0 border-light-subtle"><i class="bi bi-envelope text-muted"></i></span>
+                                <input type="email" class="form-control border-start-0 border-light-subtle" id="email" name="email" placeholder="Enter email" required autocomplete="email">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-transparent border-end-0 border-light-subtle"><i class="bi bi-lock text-muted"></i></span>
+                                <input type="password" class="form-control border-start-0 border-light-subtle" id="password" name="password" placeholder="Choose password" required autocomplete="new-password">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="role" class="form-label">I want to register as a</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-transparent border-end-0 border-light-subtle"><i class="bi bi-briefcase text-muted"></i></span>
+                                <select class="form-select border-start-0 border-light-subtle" id="role" name="role" required>
+                                    <option value="candidate" selected>Candidate (Scan my own resume)</option>
+                                    <option value="recruiter">Recruiter (Scan and view candidate profiles)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2">
+                            <i class="bi bi-person-plus me-2"></i>Create Account
+                        </button>
+                    </form>
+                    <div class="text-center mt-4">
+                        <p class="mb-0 small text-muted">Already have an account? <a href="{{ url_for('login') }}" class="text-primary fw-semibold">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

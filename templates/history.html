@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}History - ResumeScreen AI{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1><i class="bi bi-clock-history me-2"></i>Screening History</h1>
+        <p>View and manage all your previous resume screenings.</p>
+    </div>
+</section>
+
+<section class="section-padding pt-4">
+    <div class="container">
+        {% if records %}
+        <div class="table-responsive glass-card p-3">
+            <table class="table history-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Filename</th>
+                        <th>Prediction</th>
+                        <th>Confidence</th>
+                        <th>ATS Score</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td>{{ record.id }}</td>
+                        <td>
+                            <i class="bi bi-file-earmark-text me-1 text-primary"></i>
+                            {{ record.filename }}
+                        </td>
+                        <td><span class="badge bg-primary-subtle text-primary">{{ record.prediction }}</span></td>
+                        <td>{{ record.confidence }}%</td>
+                        <td>
+                            <span class="badge ats-pill">{{ record.ats_score }}</span>
+                        </td>
+                        <td>{{ record.created_at }}</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="{{ url_for('result', record_id=record.id) }}" class="btn btn-outline-primary" title="View Result">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="{{ url_for('download_report', record_id=record.id) }}" class="btn btn-outline-success" title="Download PDF">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                                <form action="{{ url_for('delete_history', record_id=record.id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this record?');">
+                                    <button type="submit" class="btn btn-outline-danger" title="Delete">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state glass-card text-center">
+            <i class="bi bi-inbox empty-icon"></i>
+            <h4>No Screening History</h4>
+            <p class="text-muted">Upload a resume to start building your screening history.</p>
+            <a href="{{ url_for('upload') }}" class="btn btn-primary">Upload Resume</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

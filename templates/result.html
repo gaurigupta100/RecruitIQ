@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}Screening Result - ResumeScreen AI{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1><i class="bi bi-clipboard-check me-2"></i>Screening Result</h1>
+        <p>AI analysis complete for <strong>{{ result.filename }}</strong></p>
+    </div>
+</section>
+
+<section class="section-padding pt-4">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="result-card glass-card text-center h-100">
+                    <div class="result-icon bg-primary-soft mx-auto">
+                        <i class="bi bi-briefcase-fill"></i>
+                    </div>
+                    <h6 class="text-muted mb-1">Predicted Category</h6>
+                    <h3 class="prediction-title">{{ result.prediction }}</h3>
+                    <div class="confidence-section mt-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <small>Confidence</small>
+                            <small class="fw-bold">{{ result.confidence }}%</small>
+                        </div>
+                        <div class="progress confidence-bar">
+                            <div class="progress-bar" style="width: {{ result.confidence }}%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="result-card glass-card text-center h-100">
+                    <div class="result-icon bg-success-soft mx-auto">
+                        <i class="bi bi-speedometer2"></i>
+                    </div>
+                    <h6 class="text-muted mb-1">ATS Score</h6>
+                    <h3 class="ats-score">{{ result.ats_score }}<small>/100</small></h3>
+                    <span class="badge ats-badge ats-{{ result.ats_rating|lower|replace(' ', '-') }}">{{ result.ats_rating }}</span>
+                    <div class="progress ats-bar mt-3">
+                        <div class="progress-bar bg-success" style="width: {{ result.ats_score }}%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="result-card glass-card h-100">
+                    <h5><i class="bi bi-bar-chart me-2"></i>Resume Statistics</h5>
+                    <ul class="stats-list">
+                        <li><span>Filename</span><strong>{{ result.filename }}</strong></li>
+                        <li><span>Word Count</span><strong>{{ result.word_count }}</strong></li>
+                        <li><span>Character Count</span><strong>{{ result.char_count }}</strong></li>
+                        <li><span>Resume Length</span><strong>{{ result.resume_length }}</strong></li>
+                        <li><span>Upload Time</span><strong>{{ result.upload_time }}</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-2">
+            <div class="col-lg-6">
+                <div class="result-card glass-card h-100">
+                    <h5><i class="bi bi-tags-fill me-2 text-primary"></i>Detected Skills ({{ result.detected_skills|length }})</h5>
+                    <div class="skills-container">
+                        {% if result.detected_skills %}
+                            {% for skill in result.detected_skills %}
+                                <span class="skill-badge detected">{{ skill }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted mb-0">No technical skills detected in this resume.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="result-card glass-card h-100">
+                    <h5><i class="bi bi-exclamation-triangle me-2 text-warning"></i>Missing Skills for {{ result.prediction }}</h5>
+                    <div class="skills-container">
+                        {% if result.missing_skills %}
+                            {% for skill in result.missing_skills %}
+                                <span class="skill-badge missing">{{ skill }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted mb-0">Great! No major skill gaps identified for this category.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-2">
+            <div class="col-lg-6">
+                <div class="result-card glass-card h-100">
+                    <h5><i class="bi bi-briefcase me-2 text-info"></i>Recommended Job Roles (Top Fits)</h5>
+                    {% if result.job_recommendations %}
+                        <div class="job-recommendations-list mt-3">
+                            {% for rec in result.job_recommendations %}
+                                <div class="job-recommendation-item mb-3 p-3 border border-light-subtle rounded" style="background: rgba(255, 255, 255, 0.03);">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0 fw-bold text-light"><i class="bi bi-check-circle-fill text-success me-2"></i>{{ rec.role }}</h6>
+                                        <span class="badge bg-primary">{{ rec.match_percentage }}% Match</span>
+                                    </div>
+                                    <p class="small text-muted mb-2">{{ rec.explanation }}</p>
+                                    <div class="mb-2">
+                                        <small class="fw-semibold text-success d-block mb-1">Matched Skills:</small>
+                                        {% for skill in rec.matched_skills %}
+                                            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill me-1 mb-1" style="font-size: 0.75rem;">{{ skill }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% if rec.missing_skills %}
+                                    <div>
+                                        <small class="fw-semibold text-warning d-block mb-1">Missing Recommended Skills:</small>
+                                        {% for skill in rec.missing_skills %}
+                                            <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill me-1 mb-1" style="font-size: 0.75rem;">{{ skill }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted mt-3">No matching job roles found with at least 40% compatibility.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="result-card glass-card h-100">
+                    <h5><i class="bi bi-compass me-2 text-warning"></i>Potential Career Paths</h5>
+                    {% if result.potential_career_paths %}
+                        <div class="career-paths-list mt-3">
+                            {% for rec in result.potential_career_paths %}
+                                <div class="career-path-item mb-3 p-3 border border-light-subtle rounded" style="background: rgba(255, 255, 255, 0.03);">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0 fw-bold text-light"><i class="bi bi-shield-lock me-2 text-warning"></i>{{ rec.role }}</h6>
+                                        <span class="badge bg-secondary">{{ rec.match_percentage }}% Match</span>
+                                    </div>
+                                    <p class="small text-muted mb-2">You are missing mandatory skills to unlock this role. Focus on learning them to open this path.</p>
+                                    <div class="mb-2">
+                                        <small class="fw-semibold text-danger d-block mb-1">Missing Core (Mandatory) Skills:</small>
+                                        {% for skill in rec.missing_mandatory %}
+                                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill me-1 mb-1" style="font-size: 0.75rem; font-weight: 600;">{{ skill }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted mt-3">Your profile matches all evaluated career paths!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-2">
+            <div class="col-12">
+                <div class="result-card glass-card">
+                    <h5><i class="bi bi-lightbulb me-2 text-warning"></i>ATS Improvement Tips</h5>
+                    <ul class="tips-list">
+                        {% for tip in result.improvement_tips %}
+                            <li>{{ tip }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5 action-buttons">
+            <a href="{{ url_for('download_report', record_id=result.record_id) }}" class="btn btn-primary btn-lg me-2">
+                <i class="bi bi-download me-2"></i>Download PDF Report
+            </a>
+            <a href="{{ url_for('upload') }}" class="btn btn-outline-primary btn-lg me-2">
+                <i class="bi bi-cloud-upload me-2"></i>Upload Another
+            </a>
+            <a href="{{ url_for('history') }}" class="btn btn-outline-secondary btn-lg">
+                <i class="bi bi-clock-history me-2"></i>View History
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

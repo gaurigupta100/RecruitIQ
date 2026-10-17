@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Contact - ResumeScreen AI{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1><i class="bi bi-envelope me-2"></i>Contact Us</h1>
+        <p>Have questions or feedback? We'd love to hear from you.</p>
+    </div>
+</section>
+
+<section class="section-padding pt-4">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-5">
+                <div class="contact-info glass-card h-100">
+                    <h4>Get in Touch</h4>
+                    <p class="text-muted">Reach out for support, feature requests, or collaboration opportunities.</p>
+
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="bi bi-envelope-fill"></i></div>
+                        <div>
+                            <h6>Email</h6>
+                            <p>support@resumescreen.ai</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                        <div>
+                            <h6>Location</h6>
+                            <p>Bangalore, India</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="bi bi-clock-fill"></i></div>
+                        <div>
+                            <h6>Response Time</h6>
+                            <p>Within 24-48 hours</p>
+                        </div>
+                    </div>
+
+                    <div class="social-links mt-4">
+                        <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="contact-form-card glass-card">
+                    <h4>Send a Message</h4>
+                    <form action="{{ url_for('contact') }}" method="POST" class="contact-form">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="subject" name="subject" placeholder="How can we help?" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" name="message" rows="5" placeholder="Your message..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-send me-2"></i>Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

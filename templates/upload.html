@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Resume - ResumeScreen AI{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1><i class="bi bi-cloud-upload me-2"></i>Upload Resume</h1>
+        <p>Upload your PDF or DOCX resume for AI-powered screening and analysis.</p>
+    </div>
+</section>
+
+<section class="section-padding pt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="upload-card glass-card">
+                    <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data" id="uploadForm">
+                        <div class="drop-zone" id="dropZone">
+                            <div class="drop-zone-content">
+                                <i class="bi bi-cloud-arrow-up drop-icon"></i>
+                                <h4>Drag & Drop Your Resume</h4>
+                                <p class="text-muted">or click to browse files</p>
+                                <input type="file" name="resume" id="resumeInput" accept=".pdf,.docx" hidden>
+                                <button type="button" class="btn btn-primary mt-3" id="browseBtn">
+                                    <i class="bi bi-folder2-open me-2"></i>Browse Files
+                                </button>
+                            </div>
+                            <div class="file-preview d-none" id="filePreview">
+                                <i class="bi bi-file-earmark-text file-preview-icon"></i>
+                                <div>
+                                    <h5 class="mb-0" id="fileName">filename.pdf</h5>
+                                    <small class="text-muted" id="fileSize">0 KB</small>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-danger" id="removeFile">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="upload-info mt-4">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <div class="info-item">
+                                        <i class="bi bi-file-earmark-pdf text-danger"></i>
+                                        <span>PDF Supported</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="info-item">
+                                        <i class="bi bi-file-earmark-word text-primary"></i>
+                                        <span>DOCX Supported</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="info-item">
+                                        <i class="bi bi-hdd text-warning"></i>
+                                        <span>Max 5 MB</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg px-5" id="submitBtn" disabled>
+                                <i class="bi bi-search me-2"></i>Analyze Resume
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    initUploadPage();
+</script>
+{% endblock %}

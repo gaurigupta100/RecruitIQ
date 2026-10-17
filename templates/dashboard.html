@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - ResumeScreen AI{% endblock %}
+
+{% block extra_head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1><i class="bi bi-speedometer2 me-2"></i>Analytics Dashboard</h1>
+        <p>Track resume screening metrics and trends at a glance.</p>
+    </div>
+</section>
+
+<section class="section-padding pt-4">
+    <div class="container">
+        <div class="row g-4 mb-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card glass-card">
+                    <div class="stat-card-icon bg-primary-soft"><i class="bi bi-files"></i></div>
+                    <div>
+                        <h3>{{ stats.total_uploads }}</h3>
+                        <p>Total Uploads</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card glass-card">
+                    <div class="stat-card-icon bg-success-soft"><i class="bi bi-trophy"></i></div>
+                    <div>
+                        <h3 class="stat-sm">{{ stats.most_common_category }}</h3>
+                        <p>Top Category</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card glass-card">
+                    <div class="stat-card-icon bg-warning-soft"><i class="bi bi-speedometer"></i></div>
+                    <div>
+                        <h3>{{ stats.avg_ats_score }}</h3>
+                        <p>Avg ATS Score</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card glass-card">
+                    <div class="stat-card-icon bg-info-soft"><i class="bi bi-percent"></i></div>
+                    <div>
+                        <h3>{{ stats.avg_confidence }}%</h3>
+                        <p>Avg Confidence</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if stats.latest_upload %}
+        <div class="latest-upload glass-card mb-4">
+            <h5><i class="bi bi-clock me-2"></i>Latest Upload</h5>
+            <div class="d-flex flex-wrap gap-4 align-items-center">
+                <span><strong>File:</strong> {{ stats.latest_upload.filename }}</span>
+                <span><strong>Category:</strong> {{ stats.latest_upload.prediction }}</span>
+                <span><strong>Date:</strong> {{ stats.latest_upload.created_at }}</span>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="chart-card glass-card">
+                    <h5><i class="bi bi-pie-chart me-2"></i>Category Distribution</h5>
+                    <div class="chart-container">
+                        <canvas id="pieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="chart-card glass-card">
+                    <h5><i class="bi bi-bar-chart me-2"></i>Upload Trends</h5>
+                    <div class="chart-container">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if stats.total_uploads == 0 %}
+        <div class="empty-state glass-card text-center mt-4">
+            <i class="bi bi-inbox empty-icon"></i>
+            <h4>No Data Yet</h4>
+            <p class="text-muted">Upload your first resume to populate the dashboard.</p>
+            <a href="{{ url_for('upload') }}" class="btn btn-primary">Upload Resume</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    const categoryData = {{ stats.category_distribution | tojson }};
+    const trendData = {{ stats.upload_trends | tojson }};
+    initDashboardCharts(categoryData, trendData);
+</script>
+{% endblock %}

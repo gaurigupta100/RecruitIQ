@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}About - ResumeScreen AI{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1><i class="bi bi-info-circle me-2"></i>About the Project</h1>
+        <p>Learn about the technology and machine learning pipeline behind ResumeScreen AI.</p>
+    </div>
+</section>
+
+<section class="section-padding pt-4">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="about-card glass-card mb-4">
+                    <h3>Project Overview</h3>
+                    <p>
+                        ResumeScreen AI is an intelligent resume screening system that automates the classification
+                        of resumes into 25 distinct job categories. Built as a full-stack Flask application, it
+                        combines natural language processing, machine learning, and modern web technologies to deliver
+                        instant, actionable insights for recruiters and job seekers alike.
+                    </p>
+                    <p>
+                        The system extracts text from PDF and DOCX resumes, applies rigorous text preprocessing,
+                        classifies the document using a pre-trained Linear SVM model, and enriches results with
+                        skills detection, ATS scoring, job recommendations, and downloadable PDF reports.
+                    </p>
+                </div>
+
+                <div class="about-card glass-card mb-4">
+                    <h3>Dataset</h3>
+                    <p>
+                        The machine learning model was trained on a comprehensive resume dataset containing thousands
+                        of labeled resumes spanning 25 professional categories including Data Science, Python Developer,
+                        Java Developer, DevOps Engineer, HR, Sales, and more. Each resume was labeled with its
+                        corresponding job category to enable supervised multi-class classification.
+                    </p>
+                </div>
+
+                <div class="about-card glass-card mb-4">
+                    <h3>Machine Learning Pipeline</h3>
+                    <div class="pipeline-steps">
+                        <div class="pipeline-step">
+                            <span class="pipeline-num">1</span>
+                            <div>
+                                <h6>Text Extraction</h6>
+                                <p>Parse PDF (PyMuPDF) and DOCX (python-docx) files to extract raw resume text.</p>
+                            </div>
+                        </div>
+                        <div class="pipeline-step">
+                            <span class="pipeline-num">2</span>
+                            <div>
+                                <h6>Text Preprocessing</h6>
+                                <p>Lowercase, remove URLs, punctuation, numbers, stopwords, and normalize whitespace.</p>
+                            </div>
+                        </div>
+                        <div class="pipeline-step">
+                            <span class="pipeline-num">3</span>
+                            <div>
+                                <h6>TF-IDF Vectorization</h6>
+                                <p>Transform cleaned text into numerical feature vectors using Term Frequency-Inverse Document Frequency.</p>
+                            </div>
+                        </div>
+                        <div class="pipeline-step">
+                            <span class="pipeline-num">4</span>
+                            <div>
+                                <h6>Linear SVM Classification</h6>
+                                <p>Classify the vectorized resume using a Linear Support Vector Machine with one-vs-rest strategy.</p>
+                            </div>
+                        </div>
+                        <div class="pipeline-step">
+                            <span class="pipeline-num">5</span>
+                            <div>
+                                <h6>Confidence Scoring</h6>
+                                <p>Compute confidence percentages using decision_function() values normalized via softmax.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="about-card glass-card h-100">
+                            <h4><i class="bi bi-filter me-2 text-primary"></i>TF-IDF</h4>
+                            <p>
+                                Term Frequency-Inverse Document Frequency (TF-IDF) is a numerical statistic that reflects
+                                how important a word is to a document in a collection. It increases proportionally to the
+                                number of times a word appears in the document but is offset by the frequency of the word
+                                in the corpus, helping to adjust for the fact that some words appear more frequently in general.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="about-card glass-card h-100">
+                            <h4><i class="bi bi-diagram-3 me-2 text-success"></i>Linear SVM</h4>
+                            <p>
+                                Linear Support Vector Machine (SVM) finds the optimal hyperplane that separates data points
+                                of different classes with maximum margin. For multi-class problems, a one-vs-rest strategy
+                                trains one classifier per class. LinearSVC is efficient for high-dimensional sparse text data
+                                produced by TF-IDF vectorization.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="about-card glass-card mb-4">
+                    <h4>25 Job Categories</h4>
+                    <div class="category-tags">
+                        <span class="category-tag">Data Science</span>
+                        <span class="category-tag">Python Developer</span>
+                        <span class="category-tag">Java Developer</span>
+                        <span class="category-tag">DevOps Engineer</span>
+                        <span class="category-tag">Web Designing</span>
+                        <span class="category-tag">Testing</span>
+                        <span class="category-tag">Blockchain</span>
+                        <span class="category-tag">Business Analyst</span>
+                        <span class="category-tag">HR</span>
+                        <span class="category-tag">Sales</span>
+                        <span class="category-tag">+ 15 more</span>
+                    </div>
+                </div>
+
+                <div class="about-card glass-card">
+                    <h4>Technologies Used</h4>
+                    <ul class="tech-list">
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Python 3</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Flask Web Framework</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Scikit-learn</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> TF-IDF Vectorizer</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Linear SVM Classifier</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> SQLite Database</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> PyMuPDF & python-docx</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Bootstrap 5</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Chart.js</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> ReportLab PDF</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Joblib Model Persistence</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
