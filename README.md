@@ -28,8 +28,6 @@ The project uses a trained Machine Learning model to analyze resume-related info
 
 **Dataset:** Kaggle
 
-*Note: Specify the exact model name and version according to your implementation.*
-
  ⚙️ Installation & Usage
 
  Clone the repository:
